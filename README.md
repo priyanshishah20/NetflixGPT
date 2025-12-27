@@ -22,3 +22,8 @@ LoggedIn
 NetflixGPT
  - Search bar
  - Movie suggestions
+
+
+# Two ways to handle form
+- using state variable
+- using useRef
