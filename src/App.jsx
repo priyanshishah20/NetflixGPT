@@ -1,10 +1,11 @@
-import './App.css'
+import React from 'react'
+import Body from './components/Body.jsx'
 
 function App() {
 
   return (
     <>
-      <h1 className='text-red-500'>NetflixGPT Project</h1>
+      <Body />
     </>
   )
 }
