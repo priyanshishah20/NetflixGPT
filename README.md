@@ -27,3 +27,11 @@ NetflixGPT
 # Two ways to handle form
 - using state variable
 - using useRef
+
+# firebase.google.com - most of the startups use as backend
+firebase for building authentication
+
+# firebase hosting
+firebase deploy - command
+first you need to select the plan as blaze on firebase, then only hosting will work
+# https://firebase.google.com/pricing?authuser=0&_gl=1*5awgrj*_ga*MjAzMjY4ODAwMC4xNzY3MDIyNjIy*_ga_CW55HF8NVT*czE3NjcwMjI2MjIkbzEkZzEkdDE3NjcwMjkyMDYkajM0JGwwJGgw
