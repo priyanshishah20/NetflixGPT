@@ -39,7 +39,7 @@ const Header = () => {
 
   return (
     <>
-    <div className='flex justify-between py-4 px-8 absolute z-10 w-full'>
+    <div className='flex justify-between py-4 px-16 absolute z-10 w-full'>
       <img src={logo} alt="Netflix Logo" className="w-32"/>
       {user && (<div>
         <img src={user?.photoURL} alt='Profile Icon' className='w-8 text-xs inline-block mr-4'/>
