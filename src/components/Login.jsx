@@ -3,12 +3,11 @@ import Header from './Header';
 import { checkValidData } from '../utils/validate';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { userAvatar } from '../utils/constants';
 
 const Login = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [isSignUpForm, setIsSignUpForm] = useState(false);
@@ -41,11 +40,11 @@ const Login = () => {
                     console.log('User signed up:', user);
 
                     updateProfile(user, {
-                      displayName: fname.current.value, photoURL: "https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg"
+                      displayName: fname.current.value, photoURL: userAvatar
                     }).then(() => {
                         const {uid, email, displayName, photoURL} = auth.currentUser;
-                        dispatch(addUser({uid: user.uid, email: user.email, displayName: fname.current.value, photoURL: "https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg"}));
-                        navigate('/browse');
+                        dispatch(addUser({uid: uid, email: email, displayName: displayName, photoURL: photoURL}));
+                        
                     }).catch((error) => {
                       setErrMsg("Error: " + error.message);
                     });
@@ -62,13 +61,11 @@ const Login = () => {
                     // Signed in 
                     const user = userCredential.user;
                     console.log('User signed in:', user);
-                    navigate('/browse');
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     setErrMsg("Signin Error: " + errorCode + errorMessage);
-                    navigate('/');
                 });
         }
     }
