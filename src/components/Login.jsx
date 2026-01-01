@@ -12,7 +12,6 @@ const Login = () => {
 
     const [isSignUpForm, setIsSignUpForm] = useState(false);
     const toggleSignUpForm = () => {
-        //console.log('clicked');
         setIsSignUpForm(!isSignUpForm);
     }
 
@@ -23,16 +22,13 @@ const Login = () => {
 
     const handleBtnClick = () => {
         // form data validation
-        //console.log('Email', email);
-        console.log(email.current.value);
-        console.log(password.current.value);
+        // console.log(email.current.value + ' ' + password.current.value);
         const errorMsg = checkValidData(fname.current?.value, email.current?.value, password.current?.value, isSignUpForm);
         setErrMsg(errorMsg);
 
         if (errorMsg) return; // if there is an error, stop further execution
 
         if (isSignUpForm) {
-            //Sign up logic here
             createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
                 .then((userCredential) => {
                     // Signed up 
@@ -55,7 +51,6 @@ const Login = () => {
                     setErrMsg("Singup Error: " + errorCode + errorMessage);
                 });
         } else {
-            //Sign in logic here
             signInWithEmailAndPassword(auth, email.current.value, password.current.value)
                 .then((userCredential) => {
                     // Signed in 
