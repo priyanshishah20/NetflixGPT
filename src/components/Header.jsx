@@ -39,12 +39,12 @@ const Header = () => {
 
   return (
     <>
-    <div className='flex justify-between py-4 px-16 absolute z-10 w-full'>
+    <div className='flex justify-between py-4 px-8 md:px-16 absolute z-10 w-full'>
       <img src={logo} alt="Netflix Logo" className="w-32"/>
       {user && (<div>
         <img src={user?.photoURL} alt='Profile Icon' className='w-8 text-xs inline-block mr-4'/>
         {/* <span>{user?.displayName}</span> */}
-        <button onClick={handleSignOut} className='font-medium text-sm hover:rounded-md hover:bg-gray-200 py-1.5 px-3'>Sign Out</button>
+        <button onClick={handleSignOut} className='font-medium text-sm hover:rounded-md hover:bg-gray-200 hover:text-black py-1.5 px-3'>Sign Out</button>
       </div>
       )}
     </div>
