@@ -13,11 +13,12 @@ const useTrailerVideo = (movieId) => {
         const data = await response.json();
         // console.log(data.results);
 
-        const filterVideo = data.results.filter((video) => video.type === 'Trailer');
-        const trailer = filterVideo.length > 0 ? filterVideo[0] : data.results[0]; // if no trailer found, show first video
-        //console.log(trailer);
-        dispatch(addTrailerVideo(trailer));
-
+        if (data.results && data.results.length > 0) {
+            const filterVideo = data.results.filter((video) => video.type === 'Trailer');
+            const trailer = filterVideo.length > 0 ? filterVideo[0] : data.results[0]; // if no trailer found, show first video
+            //console.log(trailer);
+            dispatch(addTrailerVideo(trailer));
+        }
     }
     useEffect(() => {
         getTrailer();

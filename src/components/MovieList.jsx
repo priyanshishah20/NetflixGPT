@@ -2,8 +2,8 @@ import React from 'react'
 import MovieCard from './MovieCard'
 
 const MovieList = ({ title, movies }) => {
-    console.log(movies)
-    // const {poster_path} = movies;
+    //console.log(movies)
+    
     if (!movies || movies.length === 0) {
         return <div>No movies available</div>;
     }

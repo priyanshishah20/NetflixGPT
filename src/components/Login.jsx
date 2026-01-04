@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
+import { bgUrl, userAvatar } from '../utils/constants';
 import Header from './Header';
 import { checkValidData } from '../utils/validate';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
-import { userAvatar } from '../utils/constants';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -69,7 +69,7 @@ const Login = () => {
         <>
             <Header />
             <div className='bg-linear-to-b from-black/60'>
-                <img src='https://assets.nflxext.com/ffe/siteui/vlv3/f86b16bf-4c16-411c-8357-22d79beed09c/web/IN-en-20251222-TRIFECTA-perspective_d4acb127-f63f-4a98-ad0b-4317b0b3e500_large.jpg' alt='Netflix Background'
+                <img src={bgUrl} alt='Netflix Background'
                     className='w-full object-cover absolute -z-10'
                 />
                 <div className='pt-[4.188rem]'>

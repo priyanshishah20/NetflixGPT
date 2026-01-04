@@ -1,15 +1,20 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addUser, removeUser } from '../utils/userSlice';
 import { logo } from '../utils/constants';
+import { toggleGptSearchView } from '../utils/gptSlice';
+import { supportedLanguages } from '../utils/constants';
+import { changeLanguage } from '../utils/configSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(store => store.user)
+  const gptSearchView = useSelector(store => store.gpt.gptSearchView);
+
   const handleSignOut = () => {
     signOut(auth).then(() => {
       // Sign-out successful.
@@ -20,12 +25,12 @@ const Header = () => {
     });
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const {uid, email, displayName, photoURL} = user;
+        const { uid, email, displayName, photoURL } = user;
         // Dispatch an action to add the user to the Redux store
-        dispatch(addUser({uid: uid, email: email, displayName: displayName, photoURL: photoURL}));
+        dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }));
         navigate('/browse');
       } else {
         // User is signed out
@@ -33,21 +38,40 @@ const Header = () => {
         navigate('/');
       }
     });
-   // unsubscribe when component unmounts
+    // unsubscribe when component unmounts
     return () => unsubscribe();
   }, [])
 
+  const handleGPTSearch = () => {
+    dispatch(toggleGptSearchView());
+  }
+
+  const handleLangChange = (e) => {
+    const selectedLang = e.target.value;
+    console.log("Selected Language: ", selectedLang);
+    dispatch(changeLanguage(selectedLang));
+  }
+
   return (
     <>
-    <div className='flex justify-between py-4 px-8 md:px-16 absolute z-10 w-full'>
-      <img src={logo} alt="Netflix Logo" className="w-32"/>
-      {user && (<div>
-        <img src={user?.photoURL} alt='Profile Icon' className='w-8 text-xs inline-block mr-4'/>
-        {/* <span>{user?.displayName}</span> */}
-        <button onClick={handleSignOut} className='font-medium text-sm hover:rounded-md hover:bg-gray-200 hover:text-black py-1.5 px-3'>Sign Out</button>
+      <div className='flex justify-between py-4 px-8 md:px-16 absolute z-10 w-full'>
+        <img src={logo} alt="Netflix Logo" className="w-32" />
+        {user && (<div className='flex items-center'>
+          {gptSearchView && (<>
+              <select onChange={handleLangChange}
+                className='border border-gray-500 p-1 rounded-md text-white bg-black text-sm'>
+                {supportedLanguages.map((lang) => (
+                  <option key={lang.identifier} value={lang.identifier} className='text-white bg-black'>{lang.name}</option>
+                ))}
+              </select>
+            </>)}
+          <button onClick={handleGPTSearch} className='mx-3 font-medium text-sm rounded-md bg-purple-500 text-white py-1.5 px-3'>{gptSearchView ? 'Home Page' : 'GPT Search'}</button>
+          <img src={user?.photoURL} alt='Profile Icon' className='w-8 text-xs inline-block mr-4' />
+          {/* <span>{user?.displayName}</span> */}
+          <button onClick={handleSignOut} className='font-medium text-sm hover:rounded-md hover:bg-gray-200 hover:text-black py-1.5 px-3'>Sign Out</button>
+        </div>
+        )}
       </div>
-      )}
-    </div>
     </>
   )
 }
