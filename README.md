@@ -41,6 +41,9 @@ first you need to select the plan as blaze on firebase, then only hosting will w
 useDispatch - to store on redux
 useSelector - to get stored value from redux
 
+why page refreshes, when click on submit button
+the default behavior of the form is to submit the data & refresh
+
 # Important: .env.local Encoding Issue (Windows Users)
 
 If environment variables are not loading (e.g. import.meta.env.VITE_* is undefined) even though the file and variable names are correct, check the file encoding of your .env / .env.local file.

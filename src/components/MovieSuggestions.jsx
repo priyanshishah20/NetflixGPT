@@ -1,0 +1,30 @@
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { imageBaseURL } from '../utils/constants'
+import MovieList from './MovieList';
+
+const MovieSuggestions = () => {
+  const { movieNames, movieResults, poster_path } = useSelector(store => store.gpt);
+  if (!movieResults) return null; // No results to show (show nice UI)
+  // if(!poster_path) return null;
+
+  return (
+    <>
+      {/* <div className='grid md:grid-cols-6 gap-3'> */}
+        {movieResults.map((movie, index) => (
+          <>
+            {/* <div key={movie.id} className='mx-2 bg-black p-2 rounded-md'>
+              {movie.poster_path ?
+                <img src={`${imageBaseURL}${movie.poster_path}`} alt={movie.original_title} className='rounded-md' />
+                : <div className='text-center'>No poster available</div>}
+              <div className='word-break-all'>{movie.original_title}</div>
+            </div> */}
+            <MovieList key={movie.id} title={movie.original_title} movies={movieResults} />
+          </>
+        ))}
+      {/* </div> */}
+    </>
+  )
+}
+
+export default MovieSuggestions
