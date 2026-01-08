@@ -10,7 +10,7 @@ const MovieSuggestions = () => {
 
   return (
     <div className='bg-black/70 '>
-      <div className='grid md:grid-cols-6 gap-4 mt-3 pt-4'>
+      <div className='grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 mt-3 pt-4'>
         {movieResults.map((movie) => (
           <>
             <div key={movie.id} className='bg-black rounded-md'>

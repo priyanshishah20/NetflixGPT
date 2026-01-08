@@ -54,9 +54,9 @@ const Header = () => {
 
   return (
     <>
-      <div className='flex justify-between py-4 px-8 md:px-16 absolute z-10 w-full'>
+      <div className='flex flex-col justify-center gap-6 md:gap-0 items-center md:flex-row md:justify-between md:items-start py-4 px-8 md:px-16 absolute z-10 w-full'>
         <img src={logo} alt="Netflix Logo" className="w-32" />
-        {user && (<div className='flex items-center'>
+        {user && (<div className='flex flex-wrap items-center'>
           {gptSearchView && (<>
               <select onChange={handleLangChange}
                 className='border border-gray-500 p-1 rounded-md text-white bg-black text-sm'>

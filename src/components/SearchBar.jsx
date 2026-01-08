@@ -32,9 +32,9 @@ const SearchBar = () => {
     }
   return (
     <>
-    <div className='pt-32'>
-    <div className='w-6/12 mx-auto bg-black/80 p-8 border border-gray-500 rounded-md'>
-    <form className='flex gap-4'>
+    <div className='pt-48 sm:pt-40 md:pt-24'>
+    <div className='w-10/12 sm:w-8/12 lg:w-6/12 mx-auto bg-black/80 p-6 border-gray-500 rounded-md'>
+    <form className='flex flex-col sm:flex-row gap-4'>
         <input type="text" ref={searchTxt}
         placeholder={langConstants[langKey].gptSearchPlaceholder} className="w-full px-3 py-1.5 text-base rounded-md border border-gray-400"/>
         <button onClick={handleGptSearch}

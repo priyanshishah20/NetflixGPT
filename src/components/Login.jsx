@@ -73,8 +73,8 @@ const Login = () => {
                     className='w-full object-cover absolute -z-10'
                 />
                 <div className='pt-[4.188rem]'>
-                    <div className='w-4/12 mx-auto bg-black/70 p-8'>
-                        <h1 className='text-white font-bold text-2xl'>{isSignUpForm ? 'Sign Up' : 'Sign In'}</h1>
+                    <div className='w-10/12 md:6/12 lg:w-4/12 mx-auto bg-black/70 p-8'>
+                        <h1 className='text-white font-bold text-xl sm:text-2xl'>{isSignUpForm ? 'Sign Up' : 'Sign In'}</h1>
                         <form onSubmit={(e) => e.preventDefault()}>
                             {isSignUpForm && <>
                                 <input type='text' ref={fname} placeholder='Full Name' className='w-full p-3 mt-6 border border-gray-500 text-white rounded-md' />
