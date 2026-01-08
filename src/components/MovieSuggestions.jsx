@@ -9,21 +9,21 @@ const MovieSuggestions = () => {
   // if(!poster_path) return null;
 
   return (
-    <>
-      {/* <div className='grid md:grid-cols-6 gap-3'> */}
-        {movieResults.map((movie, index) => (
+    <div className='bg-black/70 '>
+      <div className='grid md:grid-cols-6 gap-4 mt-3 pt-4'>
+        {movieResults.map((movie) => (
           <>
-            {/* <div key={movie.id} className='mx-2 bg-black p-2 rounded-md'>
+            <div key={movie.id} className='bg-black rounded-md'>
               {movie.poster_path ?
                 <img src={`${imageBaseURL}${movie.poster_path}`} alt={movie.original_title} className='rounded-md' />
                 : <div className='text-center'>No poster available</div>}
               <div className='word-break-all'>{movie.original_title}</div>
-            </div> */}
-            <MovieList key={movie.id} title={movie.original_title} movies={movieResults} />
+            </div>
+            {/* <MovieList key={movie.id} title={movie.original_title} movies={movieResults} /> */}
           </>
         ))}
-      {/* </div> */}
-    </>
+      </div>
+    </div>
   )
 }
 

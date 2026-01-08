@@ -1,11 +1,12 @@
 import { APIOptions } from '../utils/constants';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addNowPlaying } from '../utils/movieSlice';
 
 const useNowPlaying = () => {
      // fetch data from TMDB API and update store
   const dispatch = useDispatch();
+  const now_playing = useSelector(store => store.movies.nowPlaying);
   const getNowPlaying = async () => {
     const response = await fetch('https://api.themoviedb.org/3/movie/now_playing?page=1', APIOptions);
     const data = await response.json();
@@ -15,7 +16,9 @@ const useNowPlaying = () => {
 
   // calling inside useEffect because we want to call it when the component mounts (like component render only once)
   useEffect(() => {
-    getNowPlaying();
+    if(!now_playing || now_playing.length === 0) {
+      getNowPlaying();
+    }
   }, []); // empty dependency array means it runs only once when component mounts
 
 }
