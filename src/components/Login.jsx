@@ -70,7 +70,7 @@ const Login = () => {
             <Header />
             <div className='bg-linear-to-b from-black/60'>
                 <img src={bgUrl} alt='Netflix Background'
-                    className='w-full object-cover absolute -z-10'
+                    className='w-full object-cover absolute -z-10 h-full lg:h-auto'
                 />
                 <div className='pt-[4.188rem]'>
                     <div className='w-10/12 md:6/12 lg:w-4/12 mx-auto bg-black/70 p-8'>
@@ -86,11 +86,11 @@ const Login = () => {
                                 {isSignUpForm ? 'Sign Up' : 'Sign In'}</button>
                             <p className='text-white text-center underline font-medium mt-4'>Forgot password?</p>
                             {isSignUpForm ?
-                                <><p className='text-gray-500 font-medium mt-4'>Already an user?
+                                <><p className='text-gray-400 font-medium mt-4'>Already an user?
                                     <a onClick={toggleSignUpForm} className='text-white font-bold cursor-pointer'> Sign in now</a></p>
                                 </>
                                 :
-                                <><p className='text-gray-500 font-medium mt-4'>New to Netflix?
+                                <><p className='text-gray-400 font-medium mt-4'>New to Netflix?
                                     <a onClick={toggleSignUpForm} className='text-white font-bold cursor-pointer'> Sign up now</a></p>
                                 </>}
                         </form>

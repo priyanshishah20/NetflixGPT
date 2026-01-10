@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Search } from 'lucide-react';
 import langConstants from '../utils/langConstants';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,21 +10,31 @@ const SearchBar = () => {
   const dispatch = useDispatch();
     const langKey = useSelector(store => store.config.lang);
     const searchTxt = useRef('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const searchMovieTMDB = async (movieName) => {
       const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${movieName}&include_adult=false&language=en-US&page=1`, APIOptions);
       const data = await response.json();
       console.log("TMDB Search Data:", data.results);
-      return data.results;
+      return data.results || [];
     }
+
+    
 
     const handleGptSearch = async (e) => {
         e.preventDefault();
         const searchQuery = searchTxt.current.value;
         console.log("Movie Array lists:", searchQuery);
 
+        // Clear any previous error message
+        setErrorMessage('');
+
         // get movie details from TMDB
         const movieData = await searchMovieTMDB(searchQuery);
+        if(!movieData || movieData.length === 0) {
+            setErrorMessage('No movies found, try searching something else.');
+            return;
+        }
         const movieNames = movieData.map(movie => movie.original_title).join(', ');
         console.log("Movie Names:", movieNames);
         dispatch(addMovieResults({movieNames: movieNames, movieResults: movieData}));
@@ -41,6 +51,11 @@ const SearchBar = () => {
         className='text-sm bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-1.5 rounded-md flex items-center gap-2'>
             <Search className='w-5 h-5' /> {langConstants[langKey].search}</button>
     </form>
+    {errorMessage && (
+        <div className='mt-4 text-red-400 text-center text-sm'>
+            {errorMessage}
+        </div>
+    )}
     </div>
     </div>
     </>

@@ -65,8 +65,8 @@ const Header = () => {
                 ))}
               </select>
             </>)}
-          <button onClick={handleGPTSearch} className='mx-3 font-medium text-sm rounded-md bg-purple-500 text-white py-1.5 px-3'>{gptSearchView ? 'Home Page' : 'GPT Search'}</button>
-          <img src={user?.photoURL} alt='Profile Icon' className='w-8 text-xs inline-block mr-4' />
+          <button onClick={handleGPTSearch} className='mx-3 font-medium text-sm rounded-md bg-purple-500 text-white py-1.5 px-3'>{gptSearchView ? 'Home Page' : 'Search'}</button>
+          <img src={user?.photoURL} alt='Profile Icon' className='hidden w-8 text-xs md:inline-block mr-4' />
           {/* <span>{user?.displayName}</span> */}
           <button onClick={handleSignOut} className='font-medium text-sm hover:rounded-md hover:bg-gray-200 hover:text-black py-1.5 px-3'>Sign Out</button>
         </div>
