@@ -4,60 +4,58 @@ import langConstants from '../utils/langConstants';
 import { useDispatch, useSelector } from 'react-redux';
 import client from '../utils/openai';
 import { APIOptions } from '../utils/constants';
-import { addMovieResults } from '../utils/gptSlice';
+import { addMovieResults, setLoading } from '../utils/searchSlice';
 
 const SearchBar = () => {
   const dispatch = useDispatch();
-    const langKey = useSelector(store => store.config.lang);
-    const searchTxt = useRef('');
-    const [errorMessage, setErrorMessage] = useState('');
+  const langKey = useSelector(store => store.config.lang);
+  const searchTxt = useRef('');
 
-    const searchMovieTMDB = async (movieName) => {
-      const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${movieName}&include_adult=false&language=en-US&page=1`, APIOptions);
-      const data = await response.json();
-      console.log("TMDB Search Data:", data.results);
-      return data.results || [];
+  const searchMovieTMDB = async (movieName) => {
+    const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${movieName}&include_adult=false&language=en-US&page=1`, APIOptions);
+    const data = await response.json();
+    //console.log("TMDB Search Data:", data.results);
+    return data.results || [];
+  }
+
+
+
+  const handleGptSearch = async (e) => {
+    e.preventDefault();
+
+    const searchQuery = searchTxt.current.value;
+    //console.log("Movie Array lists:", searchQuery);
+
+    dispatch(setLoading(true));
+    try {
+      // get movie details from TMDB
+    const movieData = await searchMovieTMDB(searchQuery);
+
+    const movieNames = movieData.map(movie => movie.original_title).join(', ');
+    //console.log("Movie Names:", movieNames);
+    dispatch(addMovieResults({ movieNames: movieNames, movieResults: movieData }));
+  }
+  catch (err) {
+    console.log(err);
+    dispatch(addMovieResults({ movieNames: '', movieResults: [] }));
     }
-
-    
-
-    const handleGptSearch = async (e) => {
-        e.preventDefault();
-        const searchQuery = searchTxt.current.value;
-        console.log("Movie Array lists:", searchQuery);
-
-        // Clear any previous error message
-        setErrorMessage('');
-
-        // get movie details from TMDB
-        const movieData = await searchMovieTMDB(searchQuery);
-        if(!movieData || movieData.length === 0) {
-            setErrorMessage('No movies found, try searching something else.');
-            return;
-        }
-        const movieNames = movieData.map(movie => movie.original_title).join(', ');
-        console.log("Movie Names:", movieNames);
-        dispatch(addMovieResults({movieNames: movieNames, movieResults: movieData}));
-
+    finally{
+      dispatch(setLoading(false));
     }
+  }
   return (
     <>
-    <div className='pt-48 sm:pt-40 md:pt-24'>
-    <div className='w-10/12 sm:w-8/12 lg:w-6/12 mx-auto bg-black/80 p-6 border-gray-500 rounded-md'>
-    <form className='flex flex-col sm:flex-row gap-4'>
-        <input type="text" ref={searchTxt}
-        placeholder={langConstants[langKey].gptSearchPlaceholder} className="w-full px-3 py-1.5 text-base rounded-md border border-gray-400"/>
-        <button onClick={handleGptSearch}
-        className='text-sm bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-1.5 rounded-md flex items-center gap-2'>
-            <Search className='w-5 h-5' /> {langConstants[langKey].search}</button>
-    </form>
-    {errorMessage && (
-        <div className='mt-4 text-red-400 text-center text-sm'>
-            {errorMessage}
+      <div className='pt-48 sm:pt-40 md:pt-24 mb-5'>
+        <div className='w-10/12 sm:w-8/12 lg:w-6/12 mx-auto bg-black/80 p-6 border-gray-500 rounded-md'>
+          <form className='flex flex-col sm:flex-row gap-4'>
+            <input type="text" ref={searchTxt}
+              placeholder={langConstants[langKey].gptSearchPlaceholder} className="w-full px-3 py-1.5 text-base rounded-md border border-gray-400" />
+            <button onClick={handleGptSearch}
+              className='text-sm bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-1.5 rounded-md flex items-center gap-2'>
+              <Search className='w-5 h-5' /> {langConstants[langKey].search}</button>
+          </form>
         </div>
-    )}
-    </div>
-    </div>
+      </div>
     </>
   )
 }

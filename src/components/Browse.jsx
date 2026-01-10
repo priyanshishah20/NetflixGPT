@@ -10,7 +10,7 @@ import Search from './Search';
 import { useSelector } from 'react-redux';
 
 const Browse = () => {
-  const movieSearch = useSelector(store => store.gpt.gptSearchView);
+  const movieSearch = useSelector(store => store.search.searchView);
 
   useNowPlaying();
   usePopularMovies();
