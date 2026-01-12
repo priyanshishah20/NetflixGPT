@@ -18,9 +18,7 @@ const SearchBar = () => {
     return data.results || [];
   }
 
-
-
-  const handleGptSearch = async (e) => {
+  const handleMovieSearch = async (e) => {
     e.preventDefault();
 
     const searchQuery = searchTxt.current.value;
@@ -50,7 +48,7 @@ const SearchBar = () => {
           <form className='flex flex-col sm:flex-row gap-4'>
             <input type="text" ref={searchTxt}
               placeholder={langConstants[langKey].gptSearchPlaceholder} className="w-full px-3 py-1.5 text-base rounded-md border border-gray-400" />
-            <button onClick={handleGptSearch}
+            <button onClick={handleMovieSearch}
               className='text-sm bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-1.5 rounded-md flex items-center gap-2'>
               <Search className='w-5 h-5' /> {langConstants[langKey].search}</button>
           </form>

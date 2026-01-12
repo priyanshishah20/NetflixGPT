@@ -19,11 +19,15 @@ const searchSlice = createSlice({
         },
         setLoading: (state, action) => {
             state.isLoading = action.payload;
+        },
+        clearSearchResults: (state) => {
+            state.movieNames = null;
+            state.movieResults = null;
         }
     }
 })
 
 // export actions
-export const { toggleSearchView, addMovieResults, setLoading } = searchSlice.actions;
+export const { toggleSearchView, addMovieResults, setLoading, clearSearchResults } = searchSlice.actions;
 
 export default searchSlice.reducer;

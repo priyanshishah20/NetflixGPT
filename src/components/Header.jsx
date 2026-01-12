@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addUser, removeUser } from '../utils/userSlice';
 import { logo } from '../utils/constants';
-import { toggleSearchView } from '../utils/searchSlice';
+import { toggleSearchView, clearSearchResults } from '../utils/searchSlice';
 import { supportedLanguages } from '../utils/constants';
 import { changeLanguage } from '../utils/configSlice';
 
@@ -42,7 +42,11 @@ const Header = () => {
     return () => unsubscribe();
   }, [])
 
-  const handleGPTSearch = () => {
+  const handleMovieSearch = () => {
+    if (!searchView) {
+      // Entering search mode, clear previous results
+      dispatch(clearSearchResults());
+    }
     dispatch(toggleSearchView());
   }
 
@@ -65,7 +69,7 @@ const Header = () => {
                 ))}
               </select>
             </>)}
-          <button onClick={handleGPTSearch} className='mr-4 font-medium text-sm rounded-md bg-purple-500 text-white py-1.5 px-3'>{searchView ? 'Home Page' : 'Search'}</button>
+          <button onClick={handleMovieSearch} className='mx-4 font-medium text-sm rounded-md bg-purple-500 text-white py-1.5 px-3'>{searchView ? 'Home Page' : 'Search'}</button>
           <img src={user?.photoURL} alt='Profile Icon' className='hidden w-8 text-xs md:inline-block mr-4' />
           {/* <span>{user?.displayName}</span> */}
           <button onClick={handleSignOut} className='font-medium text-sm rounded-md bg-black/10 hover:bg-gray-200 hover:text-black py-1.5 px-3'>Sign Out</button>
