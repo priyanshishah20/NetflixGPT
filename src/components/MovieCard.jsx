@@ -13,14 +13,9 @@ const MovieCard = ({ movie }) => {
 
   return (
     <>
-      <div className='flex flex-col gap-2'>
-        <div onClick={() => handleMovieInfo()} className='w-36 shrink-0 cursor-pointer'>
+      <div onClick={() => handleMovieInfo()} className='w-36 shrink-0 cursor-pointer'>
           <img src={`${imageBaseURL}${movie.poster_path}`} alt={movie.title} className='rounded-md' />
         </div>
-        <div>
-          <p>{movie.title}</p>
-        </div>
-      </div>
     </>
   )
 }
