@@ -8,6 +8,7 @@ import useUpComing from '../hooks/useUpComing';
 import useTopRated from '../hooks/useTopRated';
 import Search from './Search';
 import { useSelector } from 'react-redux';
+import MovieDialog from './MovieDialog';
 
 const Browse = () => {
   const movieSearch = useSelector(store => store.search.searchView);
@@ -24,6 +25,7 @@ const Browse = () => {
       (<>
       <MainContainer />
       <SecondaryContainer />
+      <MovieDialog />
       </>)}
     </>
   )
