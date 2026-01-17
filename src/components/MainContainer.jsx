@@ -8,7 +8,7 @@ const MainContainer = () => {
     //console.log(movies);
 
     // pick the movie to be shown in the main container
-    const mainMovie = movies && movies.length > 0 ? movies[1] : null;
+    const mainMovie = movies && movies.length > 0 ? movies[0] : null;
 
     const {title, overview, id} = mainMovie || {};
   return (

@@ -27,7 +27,7 @@ const MovieSuggestions = () => {
       <div className='mx-4 mb-4'>
           <div className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-4 gap-y-8'>
             {movieResults.map((movie) => (
-                <div key={movie.id} className='bg-black rounded-md p-4 text-center flex flex-col justify-between items-center'>
+                <div key={movie.id} className='bg-black rounded-md p-4 text-center flex flex-col gap-2 justify-between items-center'>
                   {movie.poster_path ?
                     <img src={`${imageBaseURL}${movie.poster_path}`} alt={movie.original_title} className='rounded-md' />
                     : <div className='flex flex-col gap-4 items-center sm:mt-20'>
