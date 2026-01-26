@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react'
 import { Search } from 'lucide-react';
 import langConstants from '../utils/langConstants';
 import { useDispatch, useSelector } from 'react-redux';
-import client from '../utils/openai';
 import { APIOptions } from '../utils/constants';
 import { addMovieResults, setLoading } from '../utils/searchSlice';
 
