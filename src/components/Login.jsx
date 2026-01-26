@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { bgUrl, userAvatar } from '../utils/constants';
 import Header from './Header';
-import { checkValidData } from '../utils/validate';
+import { checkValidData, getAuthErrorMessage  } from '../utils/validate';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase';
 import { useDispatch } from 'react-redux';
@@ -45,11 +45,16 @@ const Login = () => {
                       setErrMsg("Error: " + error.message);
                     });
                 })
+                // .catch((error) => {
+                //     const errorCode = error.code;
+                //     const errorMessage = error.message;
+                //     setErrMsg("Singup Error: " + errorCode + errorMessage);
+                // });
                 .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    setErrMsg("Singup Error: " + errorCode + errorMessage);
+                    const message = getAuthErrorMessage(error.code, true);
+                    setErrMsg(message);
                 });
+
         } else {
             signInWithEmailAndPassword(auth, email.current.value, password.current.value)
                 .then((userCredential) => {
@@ -57,11 +62,16 @@ const Login = () => {
                     const user = userCredential.user;
                     // console.log('User signed in:', user);
                 })
+                // .catch((error) => {
+                //     const errorCode = error.code;
+                //     const errorMessage = error.message;
+                //     setErrMsg("Signin Error: " + errorCode + errorMessage);
+                // });
                 .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    setErrMsg("Signin Error: " + errorCode + errorMessage);
+                    const message = getAuthErrorMessage(error.code, false);
+                    setErrMsg(message);
                 });
+
         }
     }
 

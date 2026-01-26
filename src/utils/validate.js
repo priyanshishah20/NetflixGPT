@@ -22,3 +22,34 @@ export const checkValidData = (fname, email, password, isSignUp) => {
 
     return null; // valid data
 }
+
+export const getAuthErrorMessage = (errorCode, isSignUp) => {
+  switch (errorCode) {
+    case 'auth/user-not-found':
+      return 'Account does not exist. Please sign up first.';
+
+    case 'auth/invalid-credential':
+      return 'Invalid email or password. If you are new, please sign up first.';
+
+    case 'auth/wrong-password':
+      return 'Incorrect password. Please try again.';
+
+    case 'auth/email-already-in-use':
+      return 'This email is already registered. Please sign in.';
+
+    case 'auth/invalid-email':
+      return 'Invalid email address.';
+
+    case 'auth/weak-password':
+      return 'Password is too weak.';
+
+    case 'auth/too-many-requests':
+      return 'Too many attempts. Please try again later.';
+
+    case 'auth/network-request-failed':
+      return 'Network error. Please check your internet connection.';
+
+    default:
+      return 'Something went wrong. Please try again.';
+  }
+};
